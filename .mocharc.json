@@ -1,0 +1,6 @@
+{
+  "ui": "tdd",
+  "timeout": 30000,
+  "recursive": true,
+  "reporter": "spec"
+}
