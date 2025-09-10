@@ -8,14 +8,25 @@
     "vscode": "^1.74.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Visualization"
   ],
   "keywords": [
     "avatar",
     "project",
     "identifier",
-    "status bar"
+    "status bar",
+    "workspace",
+    "theme"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evaisse/vscode-project-frimouss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/evaisse/vscode-project-frimouss/issues"
+  },
+  "homepage": "https://github.com/evaisse/vscode-project-frimouss#readme",
   "activationEvents": [
     "onStartupFinished"
   ],
@@ -37,7 +48,8 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/vscode": "^1.74.0",

@@ -67,9 +67,9 @@ function getProjectName(): string {
 }
 
 function updateAvatar() {
-    const projectName = getProjectName();
-    
     try {
+        const projectName = getProjectName();
+        
         // Update status bar item with project name and avatar icon
         statusBarItem.text = `$(symbol-color) ${projectName}`;
         statusBarItem.tooltip = `Project: ${projectName} - Click to view avatar`;
@@ -79,8 +79,9 @@ function updateAvatar() {
         
     } catch (error) {
         console.error('Failed to update avatar:', error);
-        statusBarItem.text = `$(warning) ${projectName}`;
-        statusBarItem.tooltip = `Project: ${projectName} (Avatar generation failed)`;
+        const fallbackName = 'Unknown';
+        statusBarItem.text = `$(warning) ${fallbackName}`;
+        statusBarItem.tooltip = `Project: ${fallbackName} (Avatar generation failed)`;
         statusBarItem.show();
     }
 }
@@ -117,99 +118,147 @@ function updateAvatarWebview() {
         return;
     }
 
-    const projectName = getProjectName();
-    const avatarSvg = AvatarGenerator.generateAvatar(projectName);
-    
-    // Create HTML content for the webview
-    const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Project Avatar</title>
-        <style>
-            body {
-                font-family: var(--vscode-font-family);
-                color: var(--vscode-foreground);
-                background-color: var(--vscode-editor-background);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                min-height: 100vh;
-                margin: 0;
-                padding: 20px;
-                box-sizing: border-box;
-            }
-            .avatar-container {
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            .avatar {
-                width: 200px;
-                height: 200px;
-                margin-bottom: 20px;
-                border-radius: 50%;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            }
-            .project-name {
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            .description {
-                font-size: 14px;
-                opacity: 0.8;
-                max-width: 400px;
-                line-height: 1.5;
-            }
-            .avatar-sizes {
-                display: flex;
-                gap: 20px;
-                align-items: center;
-                margin-top: 30px;
-            }
-            .size-demo {
-                text-align: center;
-            }
-            .size-label {
-                font-size: 12px;
-                opacity: 0.7;
-                margin-top: 10px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="avatar-container">
-            <div class="avatar">${avatarSvg}</div>
-            <div class="project-name">${projectName}</div>
-            <div class="description">
-                This is your project's unique avatar, generated from the project directory name "${projectName}". 
-                The design uses a consistent algorithm to create the same avatar every time, 
-                with colors and characters derived from your project name.
-            </div>
-        </div>
+    try {
+        const projectName = getProjectName();
+        const avatarSvg = AvatarGenerator.generateAvatar(projectName);
         
-        <div class="avatar-sizes">
-            <div class="size-demo">
-                <div style="width: 64px; height: 64px;">${avatarSvg}</div>
-                <div class="size-label">64px</div>
+        // Create HTML content for the webview
+        const html = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Project Avatar</title>
+            <style>
+                body {
+                    font-family: var(--vscode-font-family);
+                    color: var(--vscode-foreground);
+                    background-color: var(--vscode-editor-background);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 100vh;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                .avatar-container {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                .avatar {
+                    width: 200px;
+                    height: 200px;
+                    margin-bottom: 20px;
+                    border-radius: 50%;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                }
+                .project-name {
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+                .description {
+                    font-size: 14px;
+                    opacity: 0.8;
+                    max-width: 400px;
+                    line-height: 1.5;
+                }
+                .avatar-sizes {
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+                    margin-top: 30px;
+                }
+                .size-demo {
+                    text-align: center;
+                }
+                .size-label {
+                    font-size: 12px;
+                    opacity: 0.7;
+                    margin-top: 10px;
+                }
+                .error {
+                    color: var(--vscode-errorForeground);
+                    font-weight: bold;
+                    margin: 20px;
+                    text-align: center;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="avatar-container">
+                <div class="avatar">${avatarSvg}</div>
+                <div class="project-name">${projectName}</div>
+                <div class="description">
+                    This is your project's unique avatar, generated from the project directory name "${projectName}". 
+                    The design uses a consistent algorithm to create the same avatar every time, 
+                    with colors and characters derived from your project name.
+                </div>
             </div>
-            <div class="size-demo">
-                <div style="width: 32px; height: 32px;">${avatarSvg}</div>
-                <div class="size-label">32px</div>
+            
+            <div class="avatar-sizes">
+                <div class="size-demo">
+                    <div style="width: 64px; height: 64px;">${avatarSvg}</div>
+                    <div class="size-label">64px</div>
+                </div>
+                <div class="size-demo">
+                    <div style="width: 32px; height: 32px;">${avatarSvg}</div>
+                    <div class="size-label">32px</div>
+                </div>
+                <div class="size-demo">
+                    <div style="width: 16px; height: 16px;">${avatarSvg}</div>
+                    <div class="size-label">16px</div>
+                </div>
             </div>
-            <div class="size-demo">
-                <div style="width: 16px; height: 16px;">${avatarSvg}</div>
-                <div class="size-label">16px</div>
-            </div>
-        </div>
-    </body>
-    </html>
-    `;
+        </body>
+        </html>
+        `;
 
-    avatarWebviewPanel.webview.html = html;
+        avatarWebviewPanel.webview.html = html;
+        
+    } catch (error) {
+        console.error('Failed to update avatar webview:', error);
+        
+        // Show error in webview
+        const errorHtml = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Project Avatar - Error</title>
+            <style>
+                body {
+                    font-family: var(--vscode-font-family);
+                    color: var(--vscode-foreground);
+                    background-color: var(--vscode-editor-background);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 100vh;
+                    margin: 0;
+                    padding: 20px;
+                }
+                .error {
+                    color: var(--vscode-errorForeground);
+                    text-align: center;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="error">
+                <h2>Failed to generate avatar</h2>
+                <p>There was an error generating the project avatar. Please check the console for details.</p>
+            </div>
+        </body>
+        </html>
+        `;
+        
+        avatarWebviewPanel.webview.html = errorHtml;
+    }
 }
 
 export function deactivate() {
