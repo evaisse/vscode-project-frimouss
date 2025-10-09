@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Frimouss - Visual Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .tagline {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        .info-banner {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            color: white;
+        }
+        .info-banner h2 {
+            margin-bottom: 15px;
+        }
+        .info-banner ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .info-banner li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .info-banner li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .project-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        .project-card h3 {
+            text-align: center;
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        .theme-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .theme-demo {
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .theme-demo.light {
+            background: #f8f9fa;
+        }
+        .theme-demo.dark {
+            background: #2d3748;
+            color: white;
+        }
+        .theme-label {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .avatar-display {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+        }
+        .sizes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .theme-demo.dark .sizes {
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+        }
+        footer p {
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .theme-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Project Frimouss</h1>
+            <p class="tagline">Unique VSCode Project Avatars</p>
+        </header>
+        
+        <div class="info-banner">
+            <h2>Visual Testing Results</h2>
+            <p>Automated visual documentation of the Project Frimouss VSCode extension. This page demonstrates the extension's avatar generation for multiple test projects in both light and dark themes.</p>
+            <ul>
+                <li><strong>Extension Version:</strong> 0.0.1</li>
+                <li><strong>Test Projects:</strong> 2</li>
+                <li><strong>Generated:</strong> 10/9/2025, 4:02:20 PM</li>
+                <li><strong>Theme Support:</strong> Light & Dark</li>
+            </ul>
+        </div>
+        
+        <div class="projects-grid">
+            
+        <div class="project-card">
+            <h3>project-alpha</h3>
+            <div class="theme-comparison">
+                <div class="theme-demo light">
+                    <div class="theme-label">☀️ Light</div>
+                    <div class="avatar-display"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(98, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(221, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(194, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(194, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    <div class="sizes">
+                        <div style="width: 48px; height: 48px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(98, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(221, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(194, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(194, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                        <div style="width: 32px; height: 32px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(98, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(221, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(194, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(194, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                        <div style="width: 16px; height: 16px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(98, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(221, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(194, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(194, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    </div>
+                </div>
+                <div class="theme-demo dark">
+                    <div class="theme-label">🌙 Dark</div>
+                    <div class="avatar-display"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(98, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(221, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(194, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(194, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    <div class="sizes">
+                        <div style="width: 48px; height: 48px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(98, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(221, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(194, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(194, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                        <div style="width: 32px; height: 32px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(98, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(221, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(194, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(194, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                        <div style="width: 16px; height: 16px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(98, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(221, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(194, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(194, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="project-card">
+            <h3>project-beta</h3>
+            <div class="theme-comparison">
+                <div class="theme-demo light">
+                    <div class="theme-label">☀️ Light</div>
+                    <div class="avatar-display"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    <div class="sizes">
+                        <div style="width: 48px; height: 48px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                        <div style="width: 32px; height: 32px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                        <div style="width: 16px; height: 16px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    </div>
+                </div>
+                <div class="theme-demo dark">
+                    <div class="theme-label">🌙 Dark</div>
+                    <div class="avatar-display"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    <div class="sizes">
+                        <div style="width: 48px; height: 48px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                        <div style="width: 32px; height: 32px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                        <div style="width: 16px; height: 16px;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <footer>
+            <p><strong>Project Frimouss VSCode Extension</strong></p>
+            <p>Displays a unique, beautiful avatar for your current project based on the directory name</p>
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                Features: Consistent Generation • Theme-Aware • Scalable SVG • Multi-layered Design
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

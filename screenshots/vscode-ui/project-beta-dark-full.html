@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSCode - project-beta (Dark)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #2d2d30;
+            padding: 20px;
+        }
+        .window {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .title-bar {
+            height: 35px;
+            background: #3c3c3c;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            border-bottom: 1px solid #3e3e42;
+        }
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+        .window-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .window-control.close { background: #ff5f57; }
+        .window-control.minimize { background: #febc2e; }
+        .window-control.maximize { background: #28ca42; }
+        .menu-bar {
+            height: 35px;
+            background: #1e1e1e;
+            border-bottom: 1px solid #3e3e42;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 5px;
+            font-size: 13px;
+            color: #cccccc;
+        }
+        .menu-item {
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .main-content {
+            display: flex;
+            height: 700px;
+        }
+        .sidebar {
+            width: 50px;
+            background: #252526;
+            border-right: 1px solid #3e3e42;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            gap: 15px;
+        }
+        .sidebar-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        .sidebar-icon:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .sidebar-icon.active {
+            border-left: 2px solid #007acc;
+        }
+        .explorer {
+            width: 250px;
+            background: #252526;
+            border-right: 1px solid #3e3e42;
+            padding: 10px;
+        }
+        .explorer-header {
+            color: #cccccc;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.6;
+        }
+        .file-tree {
+            color: #cccccc;
+            font-size: 13px;
+        }
+        .file-item {
+            padding: 4px 8px;
+            cursor: pointer;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .file-item:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .editor-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .tab-bar {
+            height: 35px;
+            background: #1e1e1e;
+            border-bottom: 1px solid #3e3e42;
+            display: flex;
+            align-items: center;
+        }
+        .tab {
+            height: 100%;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #1e1e1e;
+            border-right: 1px solid #3e3e42;
+            color: #cccccc;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .tab.active {
+            border-top: 1px solid #007acc;
+        }
+        .editor {
+            flex: 1;
+            background: #1e1e1e;
+            padding: 20px;
+            overflow: auto;
+            color: #cccccc;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .panel {
+            flex: 1;
+            background: #1e1e1e;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .avatar-showcase {
+            text-align: center;
+        }
+        .avatar-large {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+        .project-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #cccccc;
+        }
+        .panel-description {
+            font-size: 14px;
+            color: #cccccc;
+            opacity: 0.8;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+        .status-bar {
+            height: 22px;
+            background: #007acc;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            font-size: 12px;
+        }
+        .status-left, .status-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .status-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .status-item.project-avatar {
+            background: rgba(255, 255, 255, 0.15);
+            font-weight: 500;
+        }
+        .avatar-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="title-bar">
+            <div class="window-controls">
+                <div class="window-control close"></div>
+                <div class="window-control minimize"></div>
+                <div class="window-control maximize"></div>
+            </div>
+        </div>
+        
+        <div class="menu-bar">
+            <div class="menu-item">File</div>
+            <div class="menu-item">Edit</div>
+            <div class="menu-item">Selection</div>
+            <div class="menu-item">View</div>
+            <div class="menu-item">Go</div>
+            <div class="menu-item">Run</div>
+            <div class="menu-item">Terminal</div>
+            <div class="menu-item">Help</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="sidebar-icon active">📁</div>
+                <div class="sidebar-icon">🔍</div>
+                <div class="sidebar-icon">⎇</div>
+                <div class="sidebar-icon">▶</div>
+                <div class="sidebar-icon">⚙️</div>
+            </div>
+            
+            <div class="explorer">
+                <div class="explorer-header">PROJECT-BETA</div>
+                <div class="file-tree">
+                    <div class="file-item">📄 README.md</div>
+                    <div class="file-item">📄 index.js</div>
+                </div>
+            </div>
+            
+            <div class="editor-area">
+                <div class="tab-bar">
+                    <div class="tab active">
+                        <span>📄</span>
+                        <span>README.md</span>
+                        <span>×</span>
+                    </div>
+                    <div class="tab">
+                        <span>🎨</span>
+                        <span>Project Avatar</span>
+                        <span>×</span>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <div class="avatar-showcase">
+                        <div class="avatar-large"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                        <div class="project-title">project-beta</div>
+                        <div class="panel-description">
+                            This is your project's unique avatar, generated from the directory name.
+                            Click the status bar item to toggle this panel.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <div class="status-left">
+                <div class="status-item project-avatar" title="Project Avatar - Click to view">
+                    <img src="data:image/svg+xml,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3CradialGradient%20id%3D%22bgGradient%22%20cx%3D%2250%25%22%20cy%3D%2230%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3Ahsl(28%2C%2065%25%2C%2050%25)%3Bstop-opacity%3A1%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3Ahsl(151%2C%2070%25%2C%2035%25)%3Bstop-opacity%3A1%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdefs%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%22100%22%20fill%3D%22url(%23bgGradient)%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%2298%22%20fill%3D%22none%22%20stroke%3D%22hsl(124%2C%2060%25%2C%2065%25)%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%22100%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2280%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.9%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%3EP%3C%2Ftext%3E%3Ctext%20x%3D%22124%22%20y%3D%2284%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2250%22%20font-weight%3D%22bold%22%20fill%3D%22hsl(124%2C%2060%25%2C%2065%25)%22%20opacity%3D%220.6%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%3ER%3C%2Ftext%3E%3Ctext%20x%3D%2284%22%20y%3D%22124%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2230%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.4%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E" class="avatar-icon" alt="project-beta avatar">
+                    <span>project-beta</span>
+                </div>
+                <div class="status-item">🔔</div>
+            </div>
+            <div class="status-right">
+                <div class="status-item">UTF-8</div>
+                <div class="status-item">LF</div>
+                <div class="status-item">Markdown</div>
+                <div class="status-item">✓</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
