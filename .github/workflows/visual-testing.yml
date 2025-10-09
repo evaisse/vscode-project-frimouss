@@ -1,0 +1,47 @@
+name: Visual Testing
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  visual-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18.x
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Compile TypeScript
+      run: npm run compile
+      
+    - name: Generate visual documentation
+      run: npm run generate-screenshots
+      
+    - name: Upload visual documentation
+      uses: actions/upload-artifact@v4
+      with:
+        name: visual-documentation
+        path: screenshots/
+        retention-days: 30
+        
+    - name: Display summary
+      run: |
+        echo "✅ Visual documentation generated successfully!"
+        echo ""
+        echo "Generated files:"
+        ls -lh screenshots/
+        echo ""
+        echo "📊 Download the 'visual-documentation' artifact to view the results."

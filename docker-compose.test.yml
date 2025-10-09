@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  vscode-project-alpha:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: vscode-project-alpha
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./test-projects/project-alpha:/home/coder/workspace
+      - ./out:/home/coder/extension/out
+    environment:
+      - PROJECT_NAME=project-alpha
+    command: ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none", "--install-extension", "/home/coder/extension", "/home/coder/workspace"]
+
+  vscode-project-beta:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: vscode-project-beta
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./test-projects/project-beta:/home/coder/workspace
+      - ./out:/home/coder/extension/out
+    environment:
+      - PROJECT_NAME=project-beta
+    command: ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none", "--install-extension", "/home/coder/extension", "/home/coder/workspace"]

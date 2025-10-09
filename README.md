@@ -54,11 +54,13 @@ The extension includes comprehensive testing with GitHub CI integration:
 - `npm run test-unit` - Run unit tests (fast, no VSCode dependency)
 - `npm run test-all` - Run all unit tests with summary
 - `npm test` - Run integration tests (requires VSCode environment)
+- `npm run generate-screenshots` - Generate visual documentation with avatar previews
 
 ### Test Structure
 
 - **Unit Tests** (`src/test/unit/`): Test core avatar generation logic without VSCode dependencies
 - **Integration Tests** (`src/test/integration/`): Test extension functionality within VSCode environment
+- **Visual Tests** (`scripts/generate-screenshots.js`): Generate visual documentation showing avatar output for test projects
 
 ### Continuous Integration
 
@@ -67,7 +69,24 @@ The project uses GitHub Actions for automated testing:
 - Unit tests validate core functionality
 - TypeScript compilation is verified
 - Extension packaging is tested
+- Visual documentation is generated automatically
 - Artifacts are uploaded for releases
+
+### Visual Testing
+
+The extension includes automated visual testing that generates screenshots and HTML previews:
+
+```bash
+npm run generate-screenshots
+```
+
+This creates interactive HTML pages in the `screenshots/` directory showing:
+- Avatar generation for multiple test projects
+- Light and dark theme variations
+- Multiple size demonstrations
+- Side-by-side comparisons
+
+See [Visual Testing Documentation](docs/VISUAL_TESTING.md) for details.
 
 ## AI-Powered Workflows
 
