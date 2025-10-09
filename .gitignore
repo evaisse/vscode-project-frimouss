@@ -7,6 +7,8 @@
 
 # testing
 /coverage
+.nyc_output
+/test-results/
 
 # VSCode extension build output
 /out/
@@ -36,3 +38,7 @@ next-env.d.ts
 
 # VSCode extension packaging
 *.vsix
+
+# Test artifacts
+.vscode-test/
+test-reports/
