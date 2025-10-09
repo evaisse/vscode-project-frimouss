@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Frimouss - VSCode UI Screenshots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .tagline {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+        .info-banner {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            color: white;
+        }
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .screenshot-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        .screenshot-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        .screenshot-link {
+            display: block;
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 8px 0;
+            transition: background 0.2s;
+            text-align: center;
+        }
+        .screenshot-link:hover {
+            background: #5568d3;
+        }
+        .theme-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            margin-left: 8px;
+        }
+        .theme-badge.light {
+            background: #ffd93d;
+            color: #333;
+        }
+        .theme-badge.dark {
+            background: #2d3748;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Project Frimouss - VSCode UI</h1>
+            <p class="tagline">Extension Screenshots Inside VSCode Editor</p>
+        </header>
+        
+        <div class="info-banner">
+            <h2>VSCode UI Screenshots</h2>
+            <p>These mockups show exactly how the Project Frimouss extension appears when installed in Visual Studio Code. Each screenshot demonstrates different aspects of the extension's integration:</p>
+            <ul style="margin-top: 15px; padding-left: 20px;">
+                <li>Status Bar - Shows project avatar icon and name in the bottom status bar</li>
+                <li>Webview Panel - Full avatar display opened by clicking the status bar</li>
+                <li>Full Window - Complete VSCode window with extension active</li>
+            </ul>
+        </div>
+        
+        <div class="screenshot-grid">
+            
+                <div class="screenshot-card">
+                    <h3>project-alpha</h3>
+                    
+                    <h4 style="margin-top: 20px; color: #555;">Full VSCode Window</h4>
+                    <a href="project-alpha-light-full.html" class="screenshot-link">
+                        View Full Window <span class="theme-badge light">☀️ Light</span>
+                    </a>
+                    <a href="project-alpha-dark-full.html" class="screenshot-link">
+                        View Full Window <span class="theme-badge dark">🌙 Dark</span>
+                    </a>
+                    
+                    <h4 style="margin-top: 20px; color: #555;">Status Bar Only</h4>
+                    <a href="project-alpha-light-statusbar.html" class="screenshot-link">
+                        View Status Bar <span class="theme-badge light">☀️ Light</span>
+                    </a>
+                    <a href="project-alpha-dark-statusbar.html" class="screenshot-link">
+                        View Status Bar <span class="theme-badge dark">🌙 Dark</span>
+                    </a>
+                    
+                    <h4 style="margin-top: 20px; color: #555;">Webview Panel</h4>
+                    <a href="project-alpha-light-webview.html" class="screenshot-link">
+                        View Webview <span class="theme-badge light">☀️ Light</span>
+                    </a>
+                    <a href="project-alpha-dark-webview.html" class="screenshot-link">
+                        View Webview <span class="theme-badge dark">🌙 Dark</span>
+                    </a>
+                </div>
+            
+                <div class="screenshot-card">
+                    <h3>project-beta</h3>
+                    
+                    <h4 style="margin-top: 20px; color: #555;">Full VSCode Window</h4>
+                    <a href="project-beta-light-full.html" class="screenshot-link">
+                        View Full Window <span class="theme-badge light">☀️ Light</span>
+                    </a>
+                    <a href="project-beta-dark-full.html" class="screenshot-link">
+                        View Full Window <span class="theme-badge dark">🌙 Dark</span>
+                    </a>
+                    
+                    <h4 style="margin-top: 20px; color: #555;">Status Bar Only</h4>
+                    <a href="project-beta-light-statusbar.html" class="screenshot-link">
+                        View Status Bar <span class="theme-badge light">☀️ Light</span>
+                    </a>
+                    <a href="project-beta-dark-statusbar.html" class="screenshot-link">
+                        View Status Bar <span class="theme-badge dark">🌙 Dark</span>
+                    </a>
+                    
+                    <h4 style="margin-top: 20px; color: #555;">Webview Panel</h4>
+                    <a href="project-beta-light-webview.html" class="screenshot-link">
+                        View Webview <span class="theme-badge light">☀️ Light</span>
+                    </a>
+                    <a href="project-beta-dark-webview.html" class="screenshot-link">
+                        View Webview <span class="theme-badge dark">🌙 Dark</span>
+                    </a>
+                </div>
+            
+        </div>
+    </div>
+</body>
+</html>

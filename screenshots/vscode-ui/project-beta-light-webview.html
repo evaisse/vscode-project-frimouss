@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSCode Webview Panel - project-beta (Light)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #2d2d30;
+            padding: 40px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        .title-bar {
+            padding: 15px 20px;
+            background: #ffffff;
+            color: #333333;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .title-bar h2 {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .webview-content {
+            background: #ffffff;
+            color: #333333;
+            padding: 40px;
+            min-height: 600px;
+        }
+        .avatar-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar-large {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+        .project-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+        .description {
+            font-size: 14px;
+            color: #333333;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .sizes-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .size-demo {
+            text-align: center;
+        }
+        .size-label {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #333333;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-bar">
+            <h2>Project Avatar</h2>
+            <span style="opacity: 0.5; font-size: 12px;">Webview Panel</span>
+        </div>
+        <div class="webview-content">
+            <div class="avatar-container">
+                <div class="avatar-large"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                <div class="project-name">project-beta</div>
+                <div class="description">
+                    This is your project's unique avatar, generated from the project directory name "project-beta". 
+                    The design uses a consistent algorithm to create the same avatar every time, 
+                    with colors and characters derived from your project name.
+                </div>
+            </div>
+            
+            <div class="sizes-grid">
+                <div class="size-demo">
+                    <div style="width: 64px; height: 64px; margin: 0 auto;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    <div class="size-label">64px</div>
+                </div>
+                <div class="size-demo">
+                    <div style="width: 32px; height: 32px; margin: 0 auto;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    <div class="size-label">32px</div>
+                </div>
+                <div class="size-demo">
+                    <div style="width: 16px; height: 16px; margin: 0 auto;"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs>
+            <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" style="stop-color:hsl(28, 65%, 50%);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:hsl(151, 70%, 35%);stop-opacity:1" />
+            </radialGradient>
+        </defs><circle cx="100" cy="100" r="100" fill="url(#bgGradient)"/><circle cx="100" cy="100" r="98" fill="none" stroke="hsl(124, 60%, 65%)" stroke-width="2" opacity="0.3"/><text x="100" y="100" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#000000" opacity="0.9" text-anchor="middle" dominant-baseline="central">P</text><text x="124" y="84" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="hsl(124, 60%, 65%)" opacity="0.6" text-anchor="middle" dominant-baseline="central">R</text><text x="84" y="124" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" opacity="0.4" text-anchor="middle" dominant-baseline="central">A</text></svg></div>
+                    <div class="size-label">16px</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

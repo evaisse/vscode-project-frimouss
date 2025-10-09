@@ -55,7 +55,8 @@
     "test-unit": "npx mocha out/test/unit/**/*.test.js --ui tdd",
     "test-all": "npm run test-unit && echo 'Unit tests passed. Integration tests require VSCode environment.'",
     "test-visual": "npm run compile && node ./out/test/runVisualTest.js",
-    "generate-screenshots": "npm run compile && node ./scripts/generate-screenshots.js"
+    "generate-screenshots": "npm run compile && node ./scripts/generate-screenshots.js",
+    "generate-vscode-ui": "npm run compile && node ./scripts/generate-vscode-ui-screenshots.js"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.6",

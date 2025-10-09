@@ -5,16 +5,21 @@ import * as fs from 'fs';
 import { AvatarGeneratorCore } from '../../avatarGeneratorCore';
 
 suite('Extension Visual Tests', function() {
-    this.timeout(60000); // Longer timeout for visual operations
+    this.timeout(120000); // Longer timeout for visual operations including screenshots
     
     const screenshotsDir = path.join(__dirname, '../../../screenshots');
+    const vsCodeScreenshotsDir = path.join(screenshotsDir, 'vscode-ui');
     
     suiteSetup(async () => {
-        // Create screenshots directory if it doesn't exist
+        // Create screenshots directories if they don't exist
         if (!fs.existsSync(screenshotsDir)) {
             fs.mkdirSync(screenshotsDir, { recursive: true });
         }
+        if (!fs.existsSync(vsCodeScreenshotsDir)) {
+            fs.mkdirSync(vsCodeScreenshotsDir, { recursive: true });
+        }
         console.log(`Screenshots will be saved to: ${screenshotsDir}`);
+        console.log(`VSCode UI screenshots will be saved to: ${vsCodeScreenshotsDir}`);
     });
 
     test('Extension should be activated', async () => {
