@@ -1,0 +1,167 @@
+name: AI Security Scanner
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    # Run weekly on Mondays at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  security-events: write
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18.x
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run npm audit
+      id: audit
+      run: |
+        echo "Running security audit..."
+        npm audit --json > audit_results.json || true
+        npm audit > audit_output.txt || true
+        
+        # Check if vulnerabilities found
+        if grep -q "vulnerabilities" audit_output.txt; then
+          echo "vulnerabilities_found=true" >> $GITHUB_OUTPUT
+        else
+          echo "vulnerabilities_found=false" >> $GITHUB_OUTPUT
+        fi
+      continue-on-error: true
+      
+    - name: Analyze dependencies
+      id: deps
+      run: |
+        echo "Analyzing dependencies..."
+        
+        # Count total dependencies
+        TOTAL_DEPS=$(npm list --depth=0 --json | jq '.dependencies | length')
+        echo "total_dependencies=$TOTAL_DEPS" >> $GITHUB_OUTPUT
+        
+        # Check for outdated packages
+        npm outdated --json > outdated.json || true
+        OUTDATED_COUNT=$(cat outdated.json | jq 'length')
+        echo "outdated_count=$OUTDATED_COUNT" >> $GITHUB_OUTPUT
+        
+    - name: Check TypeScript strict mode compliance
+      id: strict
+      run: |
+        echo "Checking TypeScript strict mode..."
+        npx tsc --noEmit --strict 2>&1 | tee strict_check.txt
+        STRICT_EXIT=$?
+        echo "strict_mode_status=$STRICT_EXIT" >> $GITHUB_OUTPUT
+      continue-on-error: true
+      
+    - name: Report security findings
+      if: steps.audit.outputs.vulnerabilities_found == 'true' || steps.deps.outputs.outdated_count != '0'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const vulnFound = '${{ steps.audit.outputs.vulnerabilities_found }}';
+          const totalDeps = '${{ steps.deps.outputs.total_dependencies }}';
+          const outdatedCount = '${{ steps.deps.outputs.outdated_count }}';
+          const strictStatus = '${{ steps.strict.outputs.strict_mode_status }}';
+          
+          let auditOutput = '';
+          if (fs.existsSync('audit_output.txt')) {
+            auditOutput = fs.readFileSync('audit_output.txt', 'utf8');
+          }
+          
+          let report = `## 🔒 AI Security Scanner Report
+          
+          **Scan Date:** ${new Date().toISOString()}
+          
+          ### Summary
+          - **Total Dependencies:** ${totalDeps}
+          - **Outdated Packages:** ${outdatedCount}
+          - **Vulnerabilities Found:** ${vulnFound === 'true' ? '⚠️ Yes' : '✅ No'}
+          - **Strict TypeScript:** ${strictStatus === '0' ? '✅ Compliant' : '⚠️ Non-compliant'}
+          `;
+          
+          if (vulnFound === 'true') {
+            report += `\n### 🚨 Security Vulnerabilities\n\`\`\`\n${auditOutput}\n\`\`\`\n`;
+            report += `\n### Recommended Actions
+          - Review the vulnerabilities listed above
+          - Run \`npm audit fix\` to automatically fix compatible issues
+          - For breaking changes, review and update manually
+          - Consider using GitHub Copilot to help update dependencies safely
+          `;
+          }
+          
+          if (parseInt(outdatedCount) > 0) {
+            report += `\n### 📦 Outdated Dependencies
+          Found ${outdatedCount} outdated package(s). Consider updating to get:
+          - Latest security patches
+          - Bug fixes
+          - Performance improvements
+          - New features
+          
+          Use \`npm update\` or let GitHub Copilot suggest safe update strategies.
+          `;
+          }
+          
+          report += `\n### 🤖 AI-Powered Security
+          
+          This automated scan helps identify security issues. For deeper analysis:
+          
+          1. **GitHub Copilot**: Ask about security implications
+             - \`@workspace Are there security vulnerabilities in my dependencies?\`
+             - \`@workspace How do I safely update package X?\`
+          
+          2. **Automated Fixes**: Enable Dependabot for automatic PR creation
+          
+          3. **Code Scanning**: Use GitHub Advanced Security for deeper analysis
+          
+          ---
+          *This scan runs automatically on schedule and with code changes.*`;
+          
+          // Create issue for vulnerabilities if this is a scheduled run
+          if (vulnFound === 'true' && context.eventName === 'schedule') {
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔒 Security vulnerabilities detected in dependencies',
+              body: report,
+              labels: ['security', 'dependencies', 'automated']
+            });
+          } else if (context.eventName === 'pull_request') {
+            // Post as comment on PR
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: report
+            });
+          }
+          
+    - name: Upload security artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-scan-results
+        path: |
+          audit_results.json
+          audit_output.txt
+          outdated.json
+          strict_check.txt
+        retention-days: 30

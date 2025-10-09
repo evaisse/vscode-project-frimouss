@@ -1,0 +1,152 @@
+name: AI Issue Triage
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Analyze issue content
+      id: analyze
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const issue = context.payload.issue;
+          const title = issue.title.toLowerCase();
+          const body = (issue.body || '').toLowerCase();
+          
+          let labels = [];
+          let priority = 'medium';
+          let category = 'general';
+          
+          // Detect issue type
+          if (title.includes('bug') || body.includes('bug') || body.includes('error') || body.includes('crash')) {
+            labels.push('bug');
+            category = 'bug';
+            if (body.includes('crash') || body.includes('critical')) {
+              priority = 'high';
+            }
+          }
+          
+          if (title.includes('feature') || title.includes('enhancement') || body.includes('feature request')) {
+            labels.push('enhancement');
+            category = 'feature';
+          }
+          
+          if (title.includes('doc') || body.includes('documentation')) {
+            labels.push('documentation');
+            category = 'documentation';
+          }
+          
+          if (title.includes('test') || body.includes('testing')) {
+            labels.push('testing');
+          }
+          
+          if (title.includes('ci') || title.includes('workflow') || body.includes('github actions')) {
+            labels.push('ci/cd');
+            category = 'ci';
+          }
+          
+          if (title.includes('performance') || body.includes('slow') || body.includes('performance')) {
+            labels.push('performance');
+          }
+          
+          if (title.includes('security') || body.includes('vulnerability')) {
+            labels.push('security');
+            priority = 'high';
+          }
+          
+          // Detect if AI/Copilot related
+          if (title.includes('ai') || title.includes('copilot') || body.includes('ai') || body.includes('copilot')) {
+            labels.push('ai-related');
+          }
+          
+          // Priority labels
+          if (priority === 'high') {
+            labels.push('priority: high');
+          } else if (priority === 'low') {
+            labels.push('priority: low');
+          }
+          
+          // Apply labels
+          if (labels.length > 0) {
+            try {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: labels
+              });
+            } catch (error) {
+              console.log('Note: Some labels may not exist yet. Error:', error.message);
+            }
+          }
+          
+          // Create triage comment
+          const comment = `## 🤖 AI Issue Triage
+          
+          **Detected Category:** ${category}
+          **Priority:** ${priority}
+          **Auto-assigned Labels:** ${labels.join(', ') || 'none'}
+          
+          ### AI Analysis
+          This issue has been automatically analyzed and categorized. 
+          
+          ${category === 'bug' ? `#### Bug Report Checklist
+          - [ ] Steps to reproduce provided
+          - [ ] Expected vs actual behavior described
+          - [ ] Environment details included
+          - [ ] Error logs or screenshots attached
+          
+          💡 GitHub Copilot can help generate fix suggestions once the issue is fully defined.` : ''}
+          
+          ${category === 'feature' ? `#### Feature Request Checklist
+          - [ ] Use case described
+          - [ ] Expected behavior outlined
+          - [ ] Alternatives considered
+          - [ ] Implementation ideas provided
+          
+          💡 GitHub Copilot can assist with implementation planning and code generation.` : ''}
+          
+          ${category === 'ci' ? `#### CI/CD Issue Checklist
+          - [ ] Workflow file identified
+          - [ ] Error logs included
+          - [ ] Expected behavior described
+          
+          💡 This issue relates to workflows - Copilot Autofix workflow can help diagnose and fix issues.` : ''}
+          
+          ---
+          *This triage is automated. A maintainer will review and adjust as needed.*`;
+          
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: issue.number,
+            body: comment
+          });
+          
+          core.setOutput('category', category);
+          core.setOutput('priority', priority);
+          core.setOutput('labels', labels.join(','));
+          
+    - name: Notify maintainers for high priority
+      if: "contains(steps.analyze.outputs.labels, 'priority: high')"
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const issue = context.payload.issue;
+          console.log(`High priority issue detected: #${issue.number}`);
+          
+          // You can add notification logic here (e.g., Slack, Discord, email)
+          // For now, we just log it
