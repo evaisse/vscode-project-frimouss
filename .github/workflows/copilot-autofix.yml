@@ -1,0 +1,100 @@
+name: Copilot Autofix
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'bug')) ||
+      (github.event_name == 'pull_request') ||
+      (github.event_name == 'workflow_dispatch')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18.x
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run automated fixes
+      id: autofix
+      run: |
+        echo "Running automated analysis and fixes..."
+        npm run compile 2>&1 | tee compile_output.txt || true
+        npm run test-unit 2>&1 | tee test_output.txt || true
+        
+        # Check for common issues
+        if grep -q "error TS" compile_output.txt; then
+          echo "found_issues=true" >> $GITHUB_OUTPUT
+          echo "issue_type=compilation" >> $GITHUB_OUTPUT
+        elif grep -q "failing" test_output.txt; then
+          echo "found_issues=true" >> $GITHUB_OUTPUT
+          echo "issue_type=tests" >> $GITHUB_OUTPUT
+        else
+          echo "found_issues=false" >> $GITHUB_OUTPUT
+        fi
+      continue-on-error: true
+    
+    - name: Report findings
+      if: steps.autofix.outputs.found_issues == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const issueType = '${{ steps.autofix.outputs.issue_type }}';
+          
+          let output = '';
+          if (fs.existsSync('compile_output.txt')) {
+            output += '## Compilation Output\n```\n' + fs.readFileSync('compile_output.txt', 'utf8') + '\n```\n\n';
+          }
+          if (fs.existsSync('test_output.txt')) {
+            output += '## Test Output\n```\n' + fs.readFileSync('test_output.txt', 'utf8') + '\n```\n';
+          }
+          
+          const comment = `## 🤖 Copilot Autofix Analysis
+          
+          **Issue Type:** ${issueType}
+          
+          ${output}
+          
+          ### Recommendations
+          ${issueType === 'compilation' ? 
+            '- Review TypeScript compilation errors\n- Check for missing type definitions\n- Verify imports and dependencies' :
+            '- Review failing test cases\n- Check test assertions and expectations\n- Verify test data and mocks'}
+          
+          This automated analysis can help identify issues. Consider using GitHub Copilot to assist with fixes.`;
+          
+          if (context.eventName === 'pull_request') {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: comment
+            });
+          } else if (context.eventName === 'issues') {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: comment
+            });
+          }

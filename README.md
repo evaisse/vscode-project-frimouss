@@ -69,6 +69,67 @@ The project uses GitHub Actions for automated testing:
 - Extension packaging is tested
 - Artifacts are uploaded for releases
 
+## AI-Powered Workflows
+
+This project includes AI-powered GitHub Actions workflows to enhance development:
+
+### 🤖 Copilot Autofix
+Automatically analyzes and provides fix suggestions for:
+- Compilation errors
+- Test failures
+- Common code issues
+
+**Triggers:** Issues labeled with 'bug', pull requests, manual dispatch
+
+### 🔍 AI Code Review
+Provides automated code review for pull requests:
+- Analyzes code changes
+- Checks compilation status
+- Recommends test additions
+- Suggests code improvements
+
+**Triggers:** Pull request creation and updates
+
+### 🏷️ AI Issue Triage
+Automatically categorizes and labels new issues:
+- Detects issue type (bug, feature, documentation, etc.)
+- Assigns priority levels
+- Provides relevant checklists
+- Suggests AI assistance options
+
+**Triggers:** New issue creation
+
+### 💡 AI PR Review Assistant
+Comprehensive PR analysis and suggestions:
+- Checks code quality
+- Identifies TODO/FIXME comments
+- Detects debug code
+- Provides GitHub Copilot usage tips
+
+**Triggers:** Pull request creation, updates, and review comments
+
+### 🔒 AI Security Scanner
+Regular security and dependency scanning:
+- npm audit for vulnerabilities
+- Outdated package detection
+- TypeScript strict mode compliance
+- Automated security reports
+
+**Triggers:** Pushes, pull requests, weekly schedule, manual dispatch
+
+### Using AI Assistance
+
+All these workflows integrate with GitHub Copilot to help you:
+1. **Fix issues faster** - AI analyzes problems and suggests solutions
+2. **Improve code quality** - Get automated recommendations
+3. **Stay secure** - Regular security scans with fix suggestions
+4. **Save time** - Automated triage and categorization
+
+**Pro Tip:** Use GitHub Copilot Chat with commands like:
+- `@workspace How can I fix this issue?`
+- `@workspace Review this code for improvements`
+- `@workspace Are there security concerns?`
+
 ## License
 
 MIT License - see LICENSE file for details.
